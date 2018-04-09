@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 		user = User.new (user_params)
 		if user.save
 			session[:user_id] = user.id
-			redirect_to '/'
+			redirect_to '/welcome'
 		else
 			redirect_to '/signup', alert: "Invalid name/password combination"
 		end
