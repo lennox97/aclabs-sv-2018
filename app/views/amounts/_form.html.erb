@@ -1,0 +1,32 @@
+<%= form_with(model: amount, local: true) do |form| %>
+  <% if amount.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(amount.errors.count, "error") %> prohibited this amount from being saved:</h2>
+
+      <ul>
+      <% amount.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :user_id %>
+    <%= form.number_field :user_id, id: :amount_user_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :currency_id %>
+    <%= form.number_field :currency_id, id: :amount_currency_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :quantity %>
+    <%= form.text_field :quantity, id: :amount_quantity %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
