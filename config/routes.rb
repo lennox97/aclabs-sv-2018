@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :ratios
+  resources :amounts
+  resources :currencies do 
+  	member do
+  		post 'buy', to: 'currencies#buy'
+  	end
+  end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/signup' =>'users#new'
   post '/signup' => 'users#create'
@@ -9,4 +16,5 @@ Rails.application.routes.draw do
 
   get '/welcome' => 'welcome#new'
   
+
 end
