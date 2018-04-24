@@ -1,5 +1,6 @@
 class CurrenciesController < ApplicationController
   before_action :set_currency, only: [:buy, :show, :edit, :update, :destroy]
+  before_action :authorize
 
   # GET /currencies
   # GET /currencies.json
