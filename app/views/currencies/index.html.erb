@@ -20,12 +20,18 @@
           <%= currency.name %>(<%=currency.symbol%>)</td>
         <td> <%= number_to_currency(currency.price) %> </td>
 
-        <%= form_with url: buy_currency_path(currency.id),id:"buy-form-#{currency.id}" , method: :post do |form|%>
-          <td> <%= form.number_field :amount, step: :any %></td>
+        <%= form_with url: open_modal_currency_path(currency.id),id:"buy-form-#{currency.id}" , method: :get do |form|%>
+          <td> <%= form.number_field :quantity, step: :any %></td>
           <td> <%= form.submit 'Buy', class: 'btn btn-primary',id:"buy-#{currency.id}" ,data: {disable_with: false} %></td>
+        
+        
         <% end %>
        
       </tr>
+      <div class="modal fade" style="padding: 60px;" id="currency-<%= currency.id.to_s %>" tabindex="-1" role="dialog">
+               <div class="modal-dialog" role="document">
+               </div>
+        </div>
     <% end %>
   </tbody>
 </table>
