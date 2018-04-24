@@ -4,4 +4,5 @@ class User < ApplicationRecord
   	has_secure_password
 
   	has_many :amounts
+  	has_many :transactions
 end
