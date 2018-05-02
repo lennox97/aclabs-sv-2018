@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
   get 'dashboard/index'
-
   root to:'dashboard#index'
 
   resources :ratios
@@ -20,6 +19,4 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
 
   get '/welcome' => 'welcome#new'
-  
-
 end
