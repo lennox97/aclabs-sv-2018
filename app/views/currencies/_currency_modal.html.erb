@@ -14,7 +14,7 @@
 			    	<tr>
 				    	<td><%= amount.currency.name%> <%= @amount * @currency.price(amount.currency) %></td>
 				    	<td><%= @currency.name %> <%= @amount %></td>
-                        <td><%= link_to 'Buy', buy_currency_path(final_currency_id: @currency.id, original_currency_id: amount.currency.id, final_currency_amount: @amount, original_currency_amount: amount.quantity), method: :post %></td>
+                        <td><%= link_to 'Buy', buy_currency_path(final_currency_id: @currency.id, original_currency_id: amount.currency.id, final_currency_amount: @amount, cost: @amount * @currency.price(amount.currency)), method: :post %></td>
 			    	</tr>
 			    <%end%>
 	    	</tbody>
