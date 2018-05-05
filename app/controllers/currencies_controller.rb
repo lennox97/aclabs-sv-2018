@@ -14,15 +14,31 @@ class CurrenciesController < ApplicationController
   end
 
   def buy
-    amount = params[:amount]
+    #take params from modal
+    final_currency_id = params[:final_currency_id]
+    final_currency_amount = params[:final_currency_amount]
+
+    original_currency_id = params[:original_currency_id]
+    original_currency_amount = params[:original_currency_amount]
+
     #if current_user.amounts < 
 
     #else
+      #create amount
       Amount.create(
-        currency_id: @currency.id,
-        quantity: amount,
+        currency_id: final_currency_id,
+        quantity: final_currency_amount,
         user_id: current_user.id
       )
+      #create transaction
+      Transaction.create(
+        user_id: current_user.id,
+        original_currency_id: original_currency_id,
+        original_currency_amount: original_currency_amount,
+        final_currency_id: final_currency_id,
+        final_currency_amount: final_currency_amount
+        )
+
       redirect_to currencies_path, notice: 'Successfully bought some coins'
     #end
   end
