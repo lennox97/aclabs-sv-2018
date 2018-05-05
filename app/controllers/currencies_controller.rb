@@ -15,12 +15,16 @@ class CurrenciesController < ApplicationController
 
   def buy
     amount = params[:amount]
-    Amount.create(
-      currency_id: @currency.id,
-      quantity: amount,
-      user_id: current_user.id
-    )
-    redirect_to currencies_path, notice: 'Successfully bought some coins'
+    #if current_user.amounts < 
+
+    #else
+      Amount.create(
+        currency_id: @currency.id,
+        quantity: amount,
+        user_id: current_user.id
+      )
+      redirect_to currencies_path, notice: 'Successfully bought some coins'
+    #end
   end
 
   # GET /currencies/new
