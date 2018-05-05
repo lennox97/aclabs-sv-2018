@@ -5,7 +5,10 @@ class UsersController < ApplicationController
 	
 	def create
 		user = User.new (user_params)
-		if user.save
+
+		if user.save	
+			#if register completed succesfully then save the session and create an amount of $100 for the user
+			amount = Amount.create(quantity: 100, user_id: user.id,currency_id: Currency.find_by(default: true).id)
 			session[:user_id] = user.id
 			redirect_to '/welcome'
 		else
