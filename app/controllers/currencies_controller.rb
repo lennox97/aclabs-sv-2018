@@ -30,12 +30,22 @@ class CurrenciesController < ApplicationController
     else
     #if there is enough quantity then 
 
-      #create amount
-      Amount.create(
-        currency_id: final_currency_id,
-        quantity: final_currency_amount,
-        user_id: current_user.id
-      )
+      #check if user has allready an amount to that currency 
+      final_amount = Amount.find_by(user_id: current_user.id, currency_id: final_currency_id)
+      
+      if final_amount then
+        # update amount
+        final_amount.update(
+          quantity: final_amount.quantity + final_currency_amount
+        )
+      else
+        #else create amount
+        Amount.create(
+          currency_id: final_currency_id,
+          quantity: final_currency_amount,
+          user_id: current_user.id
+        )
+      end
 
       #create transaction
       Transaction.create(
@@ -44,13 +54,12 @@ class CurrenciesController < ApplicationController
         original_currency_amount: original_amount.quantity,
         final_currency_id: final_currency_id,
         final_currency_amount: final_currency_amount
-        )
+      )
 
-        #update the quantity of the original amount
-
-        original_amount.update(
+      #update the quantity of the original amount
+      original_amount.update(
           quantity: (original_amount.quantity - cost)
-        )
+      )
 
       redirect_to currencies_path, notice: 'Successfully bought some coins'
     end
