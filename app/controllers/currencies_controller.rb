@@ -14,17 +14,55 @@ class CurrenciesController < ApplicationController
   end
 
   def buy
-    amount = params[:amount]
-    #if current_user.amounts < 
+    #take params from modal
+    final_currency_id = params[:final_currency_id]
+    final_currency_amount = params[:final_currency_amount].to_f
 
-    #else
-      Amount.create(
-        currency_id: @currency.id,
-        quantity: amount,
-        user_id: current_user.id
+    original_currency_id = params[:original_currency_id]
+    cost = params[:cost].to_f
+
+    #take the user current amount
+    original_amount = Amount.find_by(user_id: current_user.id, currency_id: original_currency_id)
+  
+    if original_amount.quantity < cost then 
+      #if the user doesn't have enough money to buy then
+      redirect_to currencies_path, notice: "You don't have enough coins to buy"
+    else
+    #if there is enough quantity then 
+
+      #check if user has allready an amount to that currency 
+      final_amount = Amount.find_by(user_id: current_user.id, currency_id: final_currency_id)
+      
+      if final_amount then
+        # update amount
+        final_amount.update(
+          quantity: final_amount.quantity + final_currency_amount
+        )
+      else
+        #else create amount
+        Amount.create(
+          currency_id: final_currency_id,
+          quantity: final_currency_amount,
+          user_id: current_user.id
+        )
+      end
+
+      #create transaction
+      Transaction.create(
+        user_id: current_user.id,
+        original_currency_id: original_currency_id,
+        original_currency_amount: original_amount.quantity,
+        final_currency_id: final_currency_id,
+        final_currency_amount: final_currency_amount
       )
+
+      #update the quantity of the original amount
+      original_amount.update(
+          quantity: (original_amount.quantity - cost)
+      )
+
       redirect_to currencies_path, notice: 'Successfully bought some coins'
-    #end
+    end
   end
 
   # GET /currencies/new
