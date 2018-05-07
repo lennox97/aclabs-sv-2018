@@ -21,7 +21,7 @@
         <td> <%= number_to_currency(currency.price) %> </td>
 
         <%= form_with url: open_modal_currency_path(currency.id),id:"buy-form-#{currency.id}" , method: :get do |form|%>
-          <td> <%= form.number_field :quantity, step: :any %></td>
+          <td> <%= form.number_field :quantity, min: 0.1, step: :any %></td>
           <td> <%= form.submit 'Buy', class: 'btn btn-primary',id:"buy-#{currency.id}" ,data: {disable_with: false} %></td>
         
         
