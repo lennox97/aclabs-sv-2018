@@ -70,6 +70,14 @@ class CurrenciesController < ApplicationController
     end
   end
 
+  def gen_chart
+    data = []
+    current_user.amounts.each do |amount|
+      data << [amount.currency.name, amount.quantity * amount.currency.price]
+    end
+    render json:{currencies:data}
+  end
+
   # GET /currencies/new
   def new
     @currency = Currency.new

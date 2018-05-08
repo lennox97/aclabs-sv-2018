@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   		post 'buy', to: 'currencies#buy'
       get 'open_modal', to:'currencies#open_modal'
   	end
+    collection do
+      get 'chart', to: 'currencies#gen_chart'
+    end
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   get '/signup' =>'users#new'
@@ -19,4 +22,6 @@ Rails.application.routes.draw do
   get '/logout' => 'sessions#destroy'
 
   get '/welcome' => 'welcome#new'
+
+
 end
