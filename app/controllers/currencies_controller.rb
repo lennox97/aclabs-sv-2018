@@ -21,6 +21,7 @@ class CurrenciesController < ApplicationController
     original_currency_id = params[:original_currency_id]
     cost = params[:cost].to_f
 
+
     #take the user current amount
     original_amount = Amount.find_by(user_id: current_user.id, currency_id: original_currency_id)
   
@@ -57,10 +58,14 @@ class CurrenciesController < ApplicationController
       )
 
       #update the quantity of the original amount
-      original_amount.update(
-          quantity: (original_amount.quantity - cost)
-      )
-
+      if original_amount.quantity - cost == 0 then
+        original_amount.destroy
+      else
+        original_amount.update(
+            quantity: (original_amount.quantity - cost)
+        )
+      end
+      
       redirect_to currencies_path, notice: 'Successfully bought some coins'
     end
   end

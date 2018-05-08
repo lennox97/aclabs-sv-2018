@@ -89,3 +89,11 @@ Ratio.create({
    currency_id: Currency.find_by(name: 'QTUM').id,
    ratio: 0.98
 })
+
+Amount.all.each do |amount|
+   new_amount = Amount.find_by(currency_id: amount.currency_id, user_id: amount.user_id)
+   if amount != new_amount then
+      amount.update(quantity: amount.quantity + new_amount.quantity)
+      new_amount.destroy
+   end
+end
