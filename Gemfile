@@ -5,7 +5,8 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+gem 'resque'
+gem 'resque-web', require: 'resque_web'
 gem 'httparty'
 #gem 'digest'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -40,6 +41,7 @@ gem 'bootstrap-sass','~> 3.2.0'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails','~> 3.7'
 end
 
 group :development do

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount ResqueWeb::Engine => "/resque_web"
   get 'dashboard/index'
   root to:'dashboard#index'
 
